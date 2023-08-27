@@ -1,0 +1,45 @@
+1. pip install -U git+https://github.com/PrithivirajDamodaran/Gramformer.git
+
+
+
+2. from gramformer import Gramformer
+import torch
+
+def set_seed(seed):
+  torch.manual_seed(seed)
+  if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
+
+
+
+3. pip install spacy
+import spacy.cli
+spacy.cli.download('en')
+
+4. gf = Gramformer(models = 1, use_gpu=False) # 1=corrector, 2=detector
+
+5. PATH = "/content/sample_data/gf.pth"
+
+6. pip install dill
+import dill
+
+7. //save file
+with open(PATH, 'wb') as f:
+    dill.dump(gf, f)
+
+8. // open file
+with open(PATH, 'rb') as f:
+    gf_inference = dill.load(f)
+
+9. influent_sentences = [
+    "Hello, I am a goof person",
+    "eat you're vegetables",
+    "it's your's"
+]
+
+10. for influent_sentence in influent_sentences:
+    corrected_sentences = gf_inference.correct(influent_sentence)
+    print("[Input] ", influent_sentence)
+    for corrected_sentence in corrected_sentences:
+      print("[Correction] ",corrected_sentence)
+    print("-" *100)
