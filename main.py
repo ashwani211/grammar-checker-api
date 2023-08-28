@@ -3,8 +3,11 @@ from gramformer import Gramformer
 import torch
 import dill
 import spacy.cli
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)
 
 spacy.cli.download('en')
 nlp = spacy.load('en_core_web_sm')
